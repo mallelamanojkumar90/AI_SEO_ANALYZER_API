@@ -1,0 +1,291 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "AI SEO Analyzer API",
+    "description": "A production-ready API for analyzing webpages and providing AI-powered SEO recommendations.",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/": {
+      "get": {
+        "summary": "Read Root",
+        "operationId": "read_root__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/analyze": {
+      "post": {
+        "summary": "Analyze Url",
+        "operationId": "analyze_url_analyze_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AnalyzeRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnalyzeResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/keywords": {
+      "post": {
+        "summary": "Extract Keywords Endpoint",
+        "operationId": "extract_keywords_endpoint_keywords_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/KeywordRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AnalyzeRequest": {
+        "properties": {
+          "url": {
+            "type": "string",
+            "title": "Url"
+          }
+        },
+        "type": "object",
+        "required": [
+          "url"
+        ],
+        "title": "AnalyzeRequest"
+      },
+      "AnalyzeResponse": {
+        "properties": {
+          "url": {
+            "type": "string",
+            "title": "Url"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "meta_description": {
+            "type": "string",
+            "title": "Meta Description"
+          },
+          "word_count": {
+            "type": "integer",
+            "title": "Word Count"
+          },
+          "readability_score": {
+            "type": "integer",
+            "title": "Readability Score"
+          },
+          "keywords": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Keywords"
+          },
+          "internal_links": {
+            "type": "integer",
+            "title": "Internal Links"
+          },
+          "external_links": {
+            "type": "integer",
+            "title": "External Links"
+          },
+          "images": {
+            "type": "integer",
+            "title": "Images"
+          },
+          "images_without_alt": {
+            "type": "integer",
+            "title": "Images Without Alt"
+          },
+          "h1_count": {
+            "type": "integer",
+            "title": "H1 Count"
+          },
+          "h2_count": {
+            "type": "integer",
+            "title": "H2 Count"
+          },
+          "h3_count": {
+            "type": "integer",
+            "title": "H3 Count"
+          },
+          "page_load_time": {
+            "type": "string",
+            "title": "Page Load Time"
+          },
+          "seo_score": {
+            "type": "integer",
+            "title": "Seo Score"
+          },
+          "issues": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Issues"
+          },
+          "ai_recommendations": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Ai Recommendations"
+          }
+        },
+        "type": "object",
+        "required": [
+          "url",
+          "title",
+          "meta_description",
+          "word_count",
+          "readability_score",
+          "keywords",
+          "internal_links",
+          "external_links",
+          "images",
+          "images_without_alt",
+          "h1_count",
+          "h2_count",
+          "h3_count",
+          "page_load_time",
+          "seo_score",
+          "issues",
+          "ai_recommendations"
+        ],
+        "title": "AnalyzeResponse"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "KeywordRequest": {
+        "properties": {
+          "text": {
+            "type": "string",
+            "title": "Text"
+          }
+        },
+        "type": "object",
+        "required": [
+          "text"
+        ],
+        "title": "KeywordRequest"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "https://your-api-domain.com",
+      "description": "Production Server (Update this URL in RapidAPI)"
+    }
+  ]
+}
